@@ -36,7 +36,7 @@ const Navbar = () => {
   const { darkMode, toggleTheme } = useThemeStore();
 
   return (
-    <div className="w-full px-4 border-b-2 dark:bg-[#111827]">
+    <div className="w-full px-4 border-b-2 ">
       <nav className="max-w-6xl mx-auto flex items-center justify-between gap-4 py-4">
         <Link
           className="self-center whitespace-nowrap text-lg md:text-2xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text"

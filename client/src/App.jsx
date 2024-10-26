@@ -18,7 +18,9 @@ function App() {
   }, [darkMode]);
 
   return (
-    <div className="flex flex-col h-screen bg-white dark:bg-[#111827] ">
+    <div
+      className={`flex flex-col h-screen transition-colors duration-500 ease-in-out bg-white dark:bg-[#111827]`}
+    >
       <Navbar />
       <main className="flex-grow ">
         <Routes>

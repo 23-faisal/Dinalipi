@@ -6,11 +6,21 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProjectsPage from "./pages/ProjectsPage";
+import Navbar from "./components/common/Navbar";
+import useThemeStore from "./store/themeStore";
+import { useEffect } from "react";
 
 function App() {
+  const darkMode = useThemeStore((state) => state.darkMode);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
   return (
-    <div>
-      <main>
+    <div className="flex flex-col h-screen bg-white dark:bg-[#111827] ">
+      <Navbar />
+      <main className="flex-grow ">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />

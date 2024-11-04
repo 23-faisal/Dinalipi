@@ -11,6 +11,7 @@ import useThemeStore from "./store/themeStore";
 import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Zoom } from "react-toastify";
+import Footer from "./components/common/Footer";
 
 function App() {
   const darkMode = useThemeStore((state) => state.darkMode);
@@ -47,6 +48,7 @@ function App() {
         theme={darkMode ? "dark" : "light"}
         transition={Zoom}
       />
+      <Footer />
     </div>
   );
 }

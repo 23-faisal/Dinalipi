@@ -39,7 +39,7 @@ const Navbar = () => {
     <div className="w-full px-4 border-b-2 ">
       <nav className="max-w-6xl mx-auto flex items-center justify-between gap-4 py-4">
         <Link
-          className="self-center whitespace-nowrap text-lg md:text-2xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text"
+          className="logo self-center whitespace-nowrap text-lg md:text-2xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-transparent bg-clip-text"
           to="/"
         >
           Dinalipi
@@ -88,9 +88,7 @@ const Navbar = () => {
           <Button
             onClick={toggleTheme}
             className={`px-4 py-2 rounded-md ${
-              darkMode
-                ? "   "
-                : "bg-white text-black border border-gray-300"
+              darkMode ? "   " : "bg-white text-black border border-gray-300"
             }`}
           >
             {darkMode ? <FaSun /> : <FaMoon />}

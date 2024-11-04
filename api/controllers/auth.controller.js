@@ -9,6 +9,15 @@ export const SignUpController = async (req, res, next) => {
     if (!username || !email || !password) {
       return next(errorHandler(400, "All fields required!"));
     }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return next(errorHandler(400, "Email already registered!"));
+    }
+
+    const existedUsername = await User.findOne({ username });
+    if (existedUsername) {
+      return next(errorHandler(400, "Username already registered!"));
+    }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 

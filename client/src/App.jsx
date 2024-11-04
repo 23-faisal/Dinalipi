@@ -9,6 +9,8 @@ import ProjectsPage from "./pages/ProjectsPage";
 import Navbar from "./components/common/Navbar";
 import useThemeStore from "./store/themeStore";
 import { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, Zoom } from "react-toastify";
 
 function App() {
   const darkMode = useThemeStore((state) => state.darkMode);
@@ -19,10 +21,10 @@ function App() {
 
   return (
     <div
-      className={`flex flex-col h-screen transition-colors duration-500 ease-in-out bg-white dark:bg-[#111827]`}
+      className={`flex flex-col min-h-screen transition-colors duration-500 ease-in-out bg-white dark:bg-[#111827]`}
     >
       <Navbar />
-      <main className="flex-grow ">
+      <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
@@ -32,6 +34,19 @@ function App() {
           <Route path="/projects" element={<ProjectsPage />} />
         </Routes>
       </main>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={darkMode ? "dark" : "light"}
+        transition={Zoom}
+      />
     </div>
   );
 }

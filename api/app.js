@@ -9,15 +9,15 @@ export const app = express();
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL], // Allowed origins
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-    credentials: true, // Allow cookies to be sent
+    origin: [process.env.FRONTEND_URL],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
 // Use body-parser middleware
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // user
 
@@ -35,14 +35,5 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({
     success: false,
     message,
-  });
-});
-
-// test
-
-app.use("/test", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "API is working",
   });
 });

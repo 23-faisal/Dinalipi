@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { IoMenu, IoSearch } from "react-icons/io5";
 import { FaMoon, FaSun } from "react-icons/fa";
@@ -14,6 +14,16 @@ import {
 } from "../ui/sheet";
 import { useState } from "react";
 import useThemeStore from "@/store/themeStore";
+import useAuthStore from "@/store/authStore";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "react-toastify";
 
 const navlinks = [
   {
@@ -31,9 +41,19 @@ const navlinks = [
 ];
 
 const Navbar = () => {
+  const { user, clearAuth } = useAuthStore();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const { darkMode, toggleTheme } = useThemeStore();
+
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    clearAuth();
+    navigate("/sign-in");
+    toast.success(`${user?.username} signed out successfully!`);
+  };
 
   return (
     <div className="w-full px-4 border-b-2 ">
@@ -77,11 +97,45 @@ const Navbar = () => {
           >
             {darkMode ? <FaSun /> : <FaMoon />}
           </Button>
-          <Link to="/sign-in">
-            <Button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-              Sign In
-            </Button>
-          </Link>
+
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage
+                    src={user.avatar || ""}
+                    alt={user.username || "User"}
+                  />
+                  <AvatarFallback className="font-extrabold text-slate-900 text-lg bg-slate-100 text-center rounded-full border-2 border-teal-500 p-2">
+                    {user.username?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="dark:bg-[#111827] dark:text-white"
+              >
+                <DropdownMenuLabel className="flex flex-col items-start gap-1 p-2 text-sm">
+                  <span className="font-semibold">{user.username}</span>
+                  <span className="text-gray-500 text-xs">{user.email}</span>
+                </DropdownMenuLabel>
+                <DropdownMenuItem
+                  onClick={() => navigate("/dashboard?tab=profile")}
+                >
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleSignOut}>
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link to="/sign-in">
+              <Button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Sign In
+              </Button>
+            </Link>
+          )}
         </div>
 
         <div className="md:hidden flex items-center gap-4">
@@ -94,11 +148,44 @@ const Navbar = () => {
             {darkMode ? <FaSun /> : <FaMoon />}
           </Button>
 
-          <Link to="/sign-in">
-            <Button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-              Sign In
-            </Button>
-          </Link>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage
+                    src={user.avatar || ""}
+                    alt={user.username || "User"}
+                  />
+                  <AvatarFallback className="font-extrabold text-slate-900 text-lg bg-slate-100 text-center rounded-full border-2 border-teal-500 p-2">
+                    {user.username?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="dark:bg-[#111827] dark:text-white"
+              >
+                <DropdownMenuLabel className="flex flex-col items-start gap-1 p-2 text-sm">
+                  <span className="font-semibold">{user.username}</span>
+                  <span className="text-gray-500 text-xs">{user.email}</span>
+                </DropdownMenuLabel>
+                <DropdownMenuItem
+                  onClick={() => navigate("/dashboard?tab=profile")}
+                >
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleSignOut}>
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Link to="/sign-in">
+              <Button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Sign In
+              </Button>
+            </Link>
+          )}
 
           <IoMenu
             onClick={() => setIsOpen(true)}

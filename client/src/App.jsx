@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, Zoom } from "react-toastify";
 import Footer from "./components/common/Footer";
+import PrivateRoute from "./components/common/PrivateRoute";
 
 function App() {
   const darkMode = useThemeStore((state) => state.darkMode);
@@ -31,7 +32,9 @@ function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
           <Route path="/projects" element={<ProjectsPage />} />
         </Routes>
       </main>

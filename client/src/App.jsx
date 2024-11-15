@@ -26,7 +26,7 @@ function App() {
       className={`flex flex-col min-h-screen transition-colors duration-500 ease-in-out bg-white dark:bg-[#111827]`}
     >
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex flex-grow h-full  ">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
